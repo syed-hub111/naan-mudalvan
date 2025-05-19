@@ -1,120 +1,133 @@
-# 🏙️ Urban Intelligence: Land Use Classification & Traffic Prediction
+# 🏙️ Urban Intelligence from CSV Data: Land Use Classification & Traffic Forecasting
 
-This project demonstrates how deep learning can be applied to urban planning tasks, specifically focusing on:
+This project applies deep learning techniques to two critical urban planning tasks using **realistic CSV datasets**:
 
-- Image-based **Land Use Classification**
-- Time-series **Traffic Volume Prediction**
+- 🏡 **Land Use Classification** from image data stored in CSV format
+- 🚦 **Traffic Volume Prediction** using time-series data from CSV
 
 ---
 
 ## ✅ Features
 
-- 🏡 Simulated classification of **Residential**, **Commercial**, and **Industrial** land use via synthetic satellite-like images.
-- 🚦 Forecasts future **Traffic Volume** using LSTM based on simulated data patterns.
-- 📊 Visualization of classification results and traffic forecasts for intuitive understanding.
-- 🔁 Fully reproducible and customizable data generation and model training pipelines.
+- 📂 Loads and processes image and traffic datasets from **CSV files**
+- 🧠 Classifies land use images into **Residential, Commercial, Industrial** using CNN
+- 📈 Predicts traffic volume trends using **LSTM-based** sequence learning
+- 📊 Visualization of model predictions vs actual values
 
 ---
 
 ## 🛠 Technology Used
 
-- **Programming Language:** Python
-- **Libraries & Frameworks:**
-  - `NumPy`, `Matplotlib` – Data processing and visualization
-  - `TensorFlow/Keras` – Deep learning models (CNN, LSTM)
-  - `scikit-learn` – Data splitting and preprocessing
+- **Language:** Python 3
+- **Libraries:**
+  - `NumPy`, `Pandas` – Data manipulation
+  - `Matplotlib` – Data visualization
+  - `TensorFlow/Keras` – Deep learning models
+  - `scikit-learn` – Dataset splitting and preprocessing
 
 ---
 
 ## ⚙️ How It Works
 
-### Land Use Classification:
-1. Synthetic RGB images are generated for each land type.
-2. A **Convolutional Neural Network (CNN)** is trained to classify images into 3 categories.
-3. Model predictions are visualized with side-by-side actual labels.
+### 1. Land Use Classification
+- Image pixel data is loaded from a CSV (`land_use_images.csv`), reshaped to `(64, 64, 3)`.
+- Labels are one-hot encoded for CNN training.
+- A **Convolutional Neural Network** is trained to classify images into one of three land use categories.
+- Predictions are visualized with side-by-side comparisons of predicted vs actual classes.
 
-### Traffic Volume Prediction:
-1. Simulated traffic data is generated using sine waves and random noise.
-2. Data is prepared into sequences (sliding window format).
-3. An **LSTM model** predicts future traffic values based on historical patterns.
-4. Actual vs. predicted values are plotted.
+### 2. Traffic Volume Prediction
+- Time-series data is loaded from a CSV (`traffic_data.csv`) containing traffic volume.
+- Sliding window approach is used to convert data into sequences of 10 time steps.
+- An **LSTM** model is trained to forecast future traffic volume.
+- Actual and predicted values are plotted to show model accuracy.
 
 ---
 
-## 📦 Data Collection
+## 🧠 ML Techniques Used
 
-- **Land Use Images:** Synthetic data generated with custom rules to simulate color patterns for each class.
-- **Traffic Volume Data:** Generated programmatically using sine functions plus noise to simulate real-world trends.
-- **No external datasets** are used – this makes the project fully self-contained and easy to run anywhere.
+- **CNN (Convolutional Neural Network):** For spatial pattern recognition in land use images.
+- **LSTM (Long Short-Term Memory):** For capturing temporal patterns in traffic volume data.
 
 ---
 
 ## 🎯 Objective
 
-The objective is to prototype AI models that can assist in:
-- Automatic categorization of land use types for satellite or drone imagery.
-- Predictive modeling for traffic management and congestion planning.
+The goal is to build a prototype system that demonstrates how deep learning models can:
+- Automate land use classification from image data.
+- Predict traffic volume trends based on historical patterns.
 
 ---
 
-## 🎮 Controls
+## 🖱️ Controls
 
-- Modify `num_samples`, `img_size`, or traffic `time_steps` to simulate larger datasets.
-- Adjust model architecture or training `epochs` for experimentation.
-- Customize the color/textural rules in `generate_class_image()` for more detailed simulations.
+- **Modify Input CSVs:**
+  - `land_use_images.csv`: Should have 64x64x3 image pixel values with a `label` column.
+  - `traffic_data.csv`: Should contain a single `volume` column of traffic values.
 
----
-
-## 🤖 ML Techniques Used
-
-- **CNN (Convolutional Neural Network)** – For spatial feature extraction in land use image classification.
-- **LSTM (Long Short-Term Memory)** – For sequence learning in traffic volume forecasting.
+- **Adjust Parameters:**
+  - Change `window` size for LSTM (currently 10)
+  - Increase `epochs` for better model accuracy
+  - Tune CNN architecture for deeper classification tasks
 
 ---
 
 ## 🏋️ Model Training
 
-### CNN
-- Input Shape: (64, 64, 3)
-- Layers: `Conv2D`, `MaxPooling2D`, `Flatten`, `Dense`
-- Output: 3-class softmax for Residential, Commercial, Industrial
+### CNN (for Image Classification)
+- Input: `(64, 64, 3)` RGB images
+- Architecture:
+  - 2 Conv2D layers + MaxPooling
+  - Flatten + Dense layers
+  - Output: Softmax (3 classes)
 
-### LSTM
-- Input Shape: (10, 1)
-- Layers: `LSTM(50)`, `Dense(1)`
-- Output: Single scalar prediction (traffic volume at future time step)
-
-Training for both models runs for **5 epochs**, but can be extended for better performance.
+### LSTM (for Traffic Forecasting)
+- Input: `(10, 1)` time-step sequences
+- Architecture:
+  - LSTM(50 units) → Dense(1)
+  - Output: Predicted traffic volume
 
 ---
 
 ## 📈 Output Explanation
 
 ### Land Use Classification
-- A set of 6 randomly selected test images are displayed.
-- Each image shows:
+- Displays 6 test images:
   - **Predicted class**
   - **Actual class**
 
 ### Traffic Volume Prediction
-- A line plot comparing:
-  - **Actual traffic values**
-  - **Predicted values** from LSTM
+- Line plot with:
+  - Blue line: Actual volume
+  - Orange line: Predicted volume
+- Demonstrates model’s ability to follow traffic trends
 
-Both outputs demonstrate model performance visually and highlight the power of deep learning in urban planning applications.
+---
+
+## 📦 Data Collection
+
+- **land_use_images.csv:**
+  - Each row represents a flattened RGB image (shape 64x64x3) with a class label (0=Residential, 1=Commercial, 2=Industrial)
+
+- **traffic_data.csv:**
+  - A single-column CSV containing continuous traffic volume values
+
+You may simulate or replace this data with real-world sources like:
+- Satellite image exports
+- Transportation department traffic APIs
 
 ---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is released under the MIT License. Use it freely for education or prototyping.
 
 ---
 
 ## 🙌 Acknowledgments
 
-This project is a conceptual demo and can be extended to real-world urban datasets such as:
-- Satellite imagery from Sentinel-2 or Google Earth Engine
-- Real traffic data from city APIs or transportation departments
+Special thanks to the open-source community for providing robust tools for AI development. You can extend this project with:
+- Satellite imagery (Sentinel, Google Earth Engine)
+- Traffic sensors, IoT data, or public city datasets
 
 ---
+
