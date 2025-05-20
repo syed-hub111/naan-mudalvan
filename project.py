@@ -1,3 +1,4 @@
+#Land Use Classification--------------------------
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -49,6 +50,7 @@ plt.suptitle("Land Use Classification - CNN Predictions", fontsize=14)
 plt.tight_layout()
 plt.show()
 
+#Traffic Volume Prediction----------------------------
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 
